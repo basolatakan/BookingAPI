@@ -16,6 +16,23 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BookingAPI.Service\BookingAPI.Service.csproj" />
+    <ProjectReference Include="BookingAPI.Service\BookingAPI.Service.csproj" />
   </ItemGroup>
+
+    <ItemGroup>
+	    <!-- API projesinin altındaki bu klasörlerdeki .cs dosyalarını derleme dışı bırak -->
+	    <Compile Remove="Booking.Core\**\*.cs" />
+	    <Compile Remove="Booking.DataAccess\**\*.cs" />
+	    <Compile Remove="BookingAPI.Service\**\*.cs" />
+
+	    <!-- İçerik / gömülü kaynak olarak da eklenmesinler -->
+	    <None Remove="Booking.Core\**\*;Booking.DataAccess\**\*;BookingAPI.Service\**\*" />
+	    <EmbeddedResource Remove="Booking.Core\**\*;Booking.DataAccess\**\*;BookingAPI.Service\**\*" />
+    </ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="BookingAPI.Service\BookingAPI.Service.csproj" />
+	</ItemGroup>
+
 
 </Project>
