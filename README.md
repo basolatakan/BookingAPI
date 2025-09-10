@@ -7,12 +7,12 @@ API, Service, DataAccess ve Core katmanlarıyla bir bağımlılık yönü **(API
 Swagger ile dokümantasyon hazır gelir.
 
 ## Özellikler:
-- ✅ **Katmanlı mimari** (Core / DataAccess / Service / API)
-- ✅ **EF Core** ile SQL Server üzerinde CRUD
-- ✅ **Swagger/OpenAPI** ile otomatik API dokümantasyonu
-- ✅ **DTO & Mapping** ile temiz giriş/çıkış modelleri
-- ✅ **Tek tip cevap modeli** (Response / ResponseGeneric\<T\>)
-- ✅ **Migrasyonlar** `Booking.DataAccess` projesinde tutulur
+-  **Katmanlı mimari** (Core / DataAccess / Service / API)
+-  **EF Core** ile SQL Server üzerinde CRUD
+-  **Swagger/OpenAPI** ile otomatik API dokümantasyonu
+-  **DTO & Mapping** ile temiz giriş/çıkış modelleri
+-  **Tek tip cevap modeli** (Response / ResponseGeneric\<T\>)
+-  **Migrasyonlar** `Booking.DataAccess` projesinde tutulur
 
 ## Teknolojiler:
 - **.NET**: .NET 8
