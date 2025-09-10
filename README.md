@@ -25,7 +25,7 @@ Swagger ile dokümantasyon hazır gelir.
 ```text
 BookingAPI.sln
 
-/Booking.Core
+**/Booking.Core**
   /Entities
     Customer.cs
     Room.cs
