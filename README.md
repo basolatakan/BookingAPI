@@ -21,29 +21,36 @@ Swagger ile dokümantasyon hazır gelir.
 - **Dokümantasyon**: Swashbuckle (Swagger)
 - **Veritabanı**: SQL Server (LocalDB veya kurulu bir SQL Server)
 
-## Dizin Yapısı (mevcut)
-```text
+## Dizin Yapısı 
 BookingAPI.sln
+
 /Booking.Core
   /Entities
     Customer.cs
     Room.cs
     Reservation.cs
+
 /Booking.DataAccess
   DatabaseConnection.cs
   /Migrations
-    2025xxxxxx_*.cs ...
+    2025xxxxxx_*.cs
+    ...
+
 /BookingAPI.Service
   /DTOs
   /Interfaces
   /Mapping
   /Response
-Controllers/                 <-- API şu an kökten çalışıyor
-  CustomersController.cs
-  RoomsController.cs
-  ReservationsController.cs
-Properties/
-Program.cs
-BookingAPI.csproj
-appsettings.json
-appsettings.Development.json
+    Response.cs
+    ResponseGeneric.cs
+
+/Booking.API
+  /Controllers
+    CustomersController.cs
+    RoomsController.cs
+    ReservationsController.cs
+  /Properties
+  Program.cs
+  BookingAPI.csproj
+  appsettings.json
+  appsettings.Development.json
