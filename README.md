@@ -22,6 +22,7 @@ Swagger ile dokümantasyon hazır gelir.
 - **Veritabanı**: SQL Server (LocalDB veya kurulu bir SQL Server)
 
 ## Dizin Yapısı 
+```text
 BookingAPI.sln
 
 /Booking.Core
