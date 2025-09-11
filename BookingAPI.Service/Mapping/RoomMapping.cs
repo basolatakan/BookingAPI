@@ -35,7 +35,8 @@ namespace BookingAPI.Service.Mapping
             {
                 RoomNumber = dto.RoomNumber,
                 Capacity = dto.Capacity,
-                IsAvailable = dto.IsAvailable
+                IsAvailable = dto.IsAvailable,
+                CreateDate = DateTime.UtcNow
             };
         }
 

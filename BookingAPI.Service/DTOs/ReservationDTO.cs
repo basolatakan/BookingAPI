@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BookingAPI.Service.DTOs
 {
-    public sealed class ReservationDTO //kaydı okuma için
+    public sealed class ReservationDTO //kaydı okuma için, o yüzden validasyona gerek duymasım.
     {
         public int Id { get; init; }
         public int CustomerId { get; init; }

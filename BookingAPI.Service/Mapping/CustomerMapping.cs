@@ -22,7 +22,8 @@ namespace BookingAPI.Service.Mapping
                 FirstName = customer.FirstName,
                 LastName = customer.LastName,
                 Email = customer.Email,
-                Phone = customer.Phone
+                Phone = customer.Phone,
+                CreateDate = DateTime.UtcNow
             };
         }
 
@@ -36,7 +37,8 @@ namespace BookingAPI.Service.Mapping
                 FirstName = dto.FirstName,
                 LastName = dto.LastName,
                 Email = dto.Email,
-                Phone = dto.Phone
+                Phone = dto.Phone,
+                CreateDate = DateTime.UtcNow
             };
         }
 

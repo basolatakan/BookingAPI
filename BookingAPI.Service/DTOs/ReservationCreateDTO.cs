@@ -9,16 +9,18 @@ namespace BookingAPI.Service.DTOs
 {
     public sealed class ReservationCreateDTO  //kayıt oluşturma için
     {
-        [Required]
+        [Required(ErrorMessage = "Müşteri ID zorunludur.")]
         public int CustomerId { get; init; }
 
-        [Required] 
+        [Required(ErrorMessage = "Oda ID zorunludur.")]
         public int RoomId { get; init; }
 
-        [Required]
+        [Required(ErrorMessage = "Başlangıç tarihi zorunludur.")]
+        [DataType(DataType.Date)]
         public DateTime StartDate { get; init; }
-        
-        [Required]
+
+        [Required(ErrorMessage = "Bitiş tarihi zorunludur.")]
+        [DataType(DataType.Date)]
         public DateTime EndDate { get; init; }
     }
 }
