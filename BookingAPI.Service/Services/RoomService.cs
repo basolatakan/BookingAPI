@@ -36,19 +36,18 @@ namespace BookingAPI.Service.Services
 
         public async Task<ResponseGeneric<RoomDTO>> CreateAsync(RoomDTO dto)
         {
-            // Basit doğrulamalar
             if (string.IsNullOrWhiteSpace(dto.RoomNumber))
                 return ResponseGeneric<RoomDTO>.Error("Oda numarası zorunludur");
 
             if (dto.Capacity <= 0)
                 return ResponseGeneric<RoomDTO>.Error("Kapasite 0'dan büyük olmalıdır");
 
-            // Oda numarası benzersizliği (tercihe bağlı iş kuralı)
+            //Oda numarası benzersizliği
             bool numberInUse = await _db.Rooms.AnyAsync(r => r.RoomNumber == dto.RoomNumber);
             if (numberInUse)
                 return ResponseGeneric<RoomDTO>.Error("Bu oda numarası zaten kullanılıyor");
 
-            var entity = dto.ToEntity(); // RoomMapping: DTO -> new Room
+            var entity = dto.ToEntity(); //RoomMapping: DTO -> new Room
             _db.Rooms.Add(entity);
             await _db.SaveChangesAsync();
 
@@ -61,7 +60,7 @@ namespace BookingAPI.Service.Services
             if (entity is null)
                 return ResponseGeneric<RoomDTO>.Error("Oda bulunamadı");
 
-            // Oda numarası değişiyorsa benzersizlik kontrolü
+            //Oda numarası değişiyorsa benzersizlik kontrolü
             if (!string.IsNullOrWhiteSpace(dto.RoomNumber) && dto.RoomNumber != entity.RoomNumber)
             {
                 bool numberInUse = await _db.Rooms.AnyAsync(r => r.RoomNumber == dto.RoomNumber && r.Id != id);
@@ -72,7 +71,7 @@ namespace BookingAPI.Service.Services
             if (dto.Capacity <= 0)
                 return ResponseGeneric<RoomDTO>.Error("Kapasite 0'dan büyük olmalıdır");
 
-            entity.UpdateFromDto(dto); // RoomMapping: UpdateFromDto(this Room, RoomDTO)
+            entity.UpdateFromDto(dto); //RoomMapping
             await _db.SaveChangesAsync();
 
             return ResponseGeneric<RoomDTO>.Success(entity.ToDto(), "Oda güncellendi");
@@ -84,7 +83,6 @@ namespace BookingAPI.Service.Services
             if (entity is null)
                 return BookingAPI.Service.Response.Response.Error("Oda bulunamadı");
 
-            // İstersen: Bu odada aktif rezervasyon var mı kontrolü (gerçek hayatta şart)
             bool hasFutureReservations = await _db.Reservations
                 .AnyAsync(res => res.RoomId == id && res.EndDate > DateTime.UtcNow);
             if (hasFutureReservations)

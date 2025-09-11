@@ -10,7 +10,7 @@ namespace BookingAPI.Service.Mapping
 {
     public static class ReservationMapping
     {
-        // Entity --> DTO 
+        //Entity --> DTO 
         public static ReservationDTO ToDto(this Reservation reservation)
         {
             ArgumentNullException.ThrowIfNull(reservation);
@@ -23,7 +23,7 @@ namespace BookingAPI.Service.Mapping
             };
         }
 
-        /*  ReservationCreateDTO içinde bu işlemleri daha sağlıklı yapabiliyoruz.
+        /*  ReservationCreateDTO içinde bu işlemleri daha sağlıklı yapabiliyorum.
           
         //DTO --> Entity (for create)
         public static Reservation ToEntity(this ReservationDTO dto)
@@ -42,8 +42,8 @@ namespace BookingAPI.Service.Mapping
         }
         */
 
-        // DTO --> Entity (update)
-        public static void UpdateFromDto(this Reservation reservation, ReservationDTO dto) // Mevcut Reservation’ı güncellemek için
+        //DTO --> Entity (update)
+        public static void UpdateFromDto(this Reservation reservation, ReservationDTO dto) //Mevcut Reservation’ı güncellemek için
         {
             ArgumentNullException.ThrowIfNull(reservation);
             ArgumentNullException.ThrowIfNull(dto);

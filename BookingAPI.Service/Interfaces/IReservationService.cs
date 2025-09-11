@@ -10,25 +10,25 @@ namespace BookingAPI.Service.Interfaces
 {
     public interface IReservationService
     {
-        // Listeleme
+        //Listeleme
         Task<ResponseGeneric<List<ReservationDTO>>> GetAllAsync();
 
-        // Tek kayıt
+        //Tek kayıt
         Task<ResponseGeneric<ReservationDTO>> GetByIdAsync(int id);
 
-        // Oluşturma (Create)
+        //Oluşturma (Create)
         Task<ResponseGeneric<ReservationDTO>> CreateAsync(ReservationCreateDTO dto);
 
-        // Güncelleme (sadece tarihleri değiştirmek için)
+        //Güncelleme (sadece tarihleri değiştirmek için)
         Task<ResponseGeneric<ReservationDTO>> UpdateDatesAsync(int id, DateTime start, DateTime end);
 
-        // Güncelleme (sadece müşteri no değiştirmek için)
+        //Güncelleme (sadece müşteri no değiştirmek için)
         Task<ResponseGeneric<ReservationDTO>> UpdateCustomerAsync(int id, int customerId);
 
-        // Güncelleme (sadece oda no değiştirmek için)
+        //Güncelleme (sadece oda no değiştirmek için)
         Task<ResponseGeneric<ReservationDTO>> UpdateRoomAsync(int id, int roomId);
 
-        // Silme/iptal
+        //Silme/iptal
         Task<IResponse> DeleteAsync(int id);
     }
 }

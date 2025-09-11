@@ -36,14 +36,12 @@ namespace BookingAPI.Service.Services
 
         public async Task<ResponseGeneric<CustomerDTO>> CreateAsync(CustomerDTO dto)
         {
-            //Basit doğrulamalar
             if (string.IsNullOrWhiteSpace(dto.FirstName) || string.IsNullOrWhiteSpace(dto.LastName))
                 return ResponseGeneric<CustomerDTO>.Error("Ad ve Soyad zorunludur");
 
             if (string.IsNullOrWhiteSpace(dto.Email))
                 return ResponseGeneric<CustomerDTO>.Error("Email zorunludur");
 
-            //Email benzersizliği
             bool emailInUse = await _db.Customers.AnyAsync(c => c.Email == dto.Email);
             if (emailInUse)
                 return ResponseGeneric<CustomerDTO>.Error("Bu email adresi zaten kayıtlı");
@@ -69,8 +67,7 @@ namespace BookingAPI.Service.Services
                     return ResponseGeneric<CustomerDTO>.Error("Bu email başka bir müşteride kayıtlı");
             }
 
-            //Mapping ile alanları güncelle
-            entity.UpdateFromDto(dto);  // CustomerMapping: UpdateFromDto(this Customer, CustomerDTO)
+            entity.UpdateFromDto(dto);  //CustomerMapping
             await _db.SaveChangesAsync();
 
             return ResponseGeneric<CustomerDTO>.Success(entity.ToDto(), "Müşteri güncellendi");
@@ -81,6 +78,10 @@ namespace BookingAPI.Service.Services
             var entity = await _db.Customers.FirstOrDefaultAsync(x => x.Id == id);
             if (entity is null)
                 return BookingAPI.Service.Response.Response.Error("Müşteri bulunamadı");
+
+            if (await _db.Reservations.AnyAsync(r => r.CustomerId == id))
+                return BookingAPI.Service.Response.Response.Error("Seçilen müşteri bir rezervasyona bağlı olduğu için silinemedi.");
+            
 
             _db.Customers.Remove(entity);
             await _db.SaveChangesAsync();

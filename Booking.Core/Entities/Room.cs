@@ -9,7 +9,7 @@ namespace Booking.Core.Entities
     public class Room : BaseEntity
     {
         //Oda ID
-        public string RoomNumber { get; set; } // A123 B456 tarzı oda numaraları olabiliceği için string
+        public string RoomNumber { get; set; } //A123 B456 tarzı oda numaraları olabiliceği için string
         public int Capacity { get; set; }
         public bool IsAvailable { get; set; }
 

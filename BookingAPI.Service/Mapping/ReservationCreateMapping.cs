@@ -10,7 +10,7 @@ namespace BookingAPI.Service.Mapping
 {
     public static class ReservationCreateMapping
     {
-        // CreateDTO --> new Entity (insert)
+        //CreateDTO --> new Entity (insert)
         public static Reservation ToEntity(this ReservationCreateDTO dto)
         {
             ArgumentNullException.ThrowIfNull(dto);

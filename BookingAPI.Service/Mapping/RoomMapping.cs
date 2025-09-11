@@ -12,7 +12,7 @@ namespace BookingAPI.Service.Mapping
 {
     public static class RoomMapping
     {
-        // Entity --> DTO
+        //Entity --> DTO
         public static RoomDTO ToDto(this Room room) //DB'deki kaydı dışarıya çıkartmak için DTO'ya çeviriyor
         {
             ArgumentNullException.ThrowIfNull(room);
@@ -39,7 +39,7 @@ namespace BookingAPI.Service.Mapping
             };
         }
 
-        // DTO --> Entity (Update için)
+        //DTO --> Entity (Update için)
         public static void UpdateFromDto(this Room room, RoomDTO dto)
         {
             ArgumentNullException.ThrowIfNull(room);

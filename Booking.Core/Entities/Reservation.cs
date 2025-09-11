@@ -14,8 +14,8 @@ namespace Booking.Core.Entities
         public DateTime StartDate { get; set; } //Giriş
         public DateTime EndDate { get; set; } //Çıkış
 
-        public Customer Customer { get; set; } // navigation
-        public Room Room { get; set; }         // navigation
+        public Customer Customer { get; set; } //navigation
+        public Room Room { get; set; }         //navigation
 
     }
 }

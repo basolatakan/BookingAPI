@@ -11,7 +11,7 @@ namespace BookingAPI.Service.Mapping
 {
     public static class CustomerMapping
     {
-        // Entity --> DTO
+        //Entity --> DTO
         public static CustomerDTO ToDto(this Customer customer) //DB’den Customer okudun, dışarı döneceksin.
         {
             ArgumentNullException.ThrowIfNull(customer);
@@ -40,7 +40,7 @@ namespace BookingAPI.Service.Mapping
             };
         }
 
-        // DTO --> Entity (Update için)
+        //DTO --> Entity (Update için)
         public static void UpdateFromDto(this Customer customer, CustomerDTO dto) //DB’den bulunan entity --> DTO ile güncelle
         {
             ArgumentNullException.ThrowIfNull(customer);

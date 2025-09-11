@@ -17,7 +17,7 @@ namespace BookingAPI.Service.Services
             _db = db;
         }
 
-        // LIST
+        //LIST
         public async Task<ResponseGeneric<List<ReservationDTO>>> GetAllAsync()
         {
             var data = await _db.Reservations
@@ -28,7 +28,7 @@ namespace BookingAPI.Service.Services
             return ResponseGeneric<List<ReservationDTO>>.Success(data, "Rezervasyonlar listelendi");
         }
 
-        // GET BY ID
+        //GET BY ID
         public async Task<ResponseGeneric<ReservationDTO>> GetByIdAsync(int id)
         {
             var entity = await _db.Reservations
@@ -41,7 +41,7 @@ namespace BookingAPI.Service.Services
             return ResponseGeneric<ReservationDTO>.Success(entity.ToDto(), "Rezervasyon getirildi");
         }
 
-        // CREATE
+        //CREATE
         public async Task<ResponseGeneric<ReservationDTO>> CreateAsync(ReservationCreateDTO dto)
         {
             if (dto.CustomerId <= 0 || dto.RoomId <= 0)
@@ -76,7 +76,7 @@ namespace BookingAPI.Service.Services
             return ResponseGeneric<ReservationDTO>.Success(entity.ToDto(), "Rezervasyon oluşturuldu");
         }
 
-        // UPDATE: sadece tarih
+        //UPDATE: sadece tarih
         public async Task<ResponseGeneric<ReservationDTO>> UpdateDatesAsync(int id, DateTime start, DateTime end)
         {
             var entity = await _db.Reservations.FirstOrDefaultAsync(x => x.Id == id);
@@ -90,7 +90,7 @@ namespace BookingAPI.Service.Services
             if (start >= end)
                 return ResponseGeneric<ReservationDTO>.Error("Geçersiz tarih aralığı");
 
-            // Kendi dışındaki aynı odadaki rezervasyonlarla çakışma kontrolü
+            //Kendi dışındaki aynı odadaki rezervasyonlarla çakışma kontrolü
             bool overlaps = await _db.Reservations.AnyAsync(x =>
                 x.RoomId == entity.RoomId &&
                 x.Id != id &&
@@ -107,7 +107,7 @@ namespace BookingAPI.Service.Services
             return ResponseGeneric<ReservationDTO>.Success(entity.ToDto(), "Rezervasyon için tarihler güncellendi");
         }
 
-        // UPDATE: sadece müşteri
+        //UPDATE: sadece müşteri
         public async Task<ResponseGeneric<ReservationDTO>> UpdateCustomerAsync(int id, int customerId)
         {
             var entity = await _db.Reservations.FirstOrDefaultAsync(x => x.Id == id);
@@ -127,7 +127,7 @@ namespace BookingAPI.Service.Services
             return ResponseGeneric<ReservationDTO>.Success(entity.ToDto(), "Müşteri güncellendi");
         }
 
-        // UPDATE: sadece oda
+        //UPDATE: sadece oda
         public async Task<ResponseGeneric<ReservationDTO>> UpdateRoomAsync(int id, int roomId)
         {
             var entity = await _db.Reservations.FirstOrDefaultAsync(x => x.Id == id);
@@ -141,7 +141,7 @@ namespace BookingAPI.Service.Services
             if (!await _db.Rooms.AnyAsync(r => r.Id == roomId))
                 return ResponseGeneric<ReservationDTO>.Error("Oda bulunamadı");
 
-            // Yeni odada mevcut tarih aralığı çakışıyor mu kontrolü
+            //Yeni odada mevcut tarih aralığı çakışıyor mu kontrolü
             bool overlaps = await _db.Reservations.AnyAsync(x =>
                 x.RoomId == roomId &&
                 x.Id != id &&
@@ -157,7 +157,7 @@ namespace BookingAPI.Service.Services
             return ResponseGeneric<ReservationDTO>.Success(entity.ToDto(), "Oda güncellendi");
         }
 
-        // DELETE
+        //DELETE
         public async Task<IResponse> DeleteAsync(int id)
         {
             var entity = await _db.Reservations.FirstOrDefaultAsync(x => x.Id == id);
