@@ -13,5 +13,6 @@ namespace BookingAPI.Service.DTOs
         public int RoomId { get; init; }
         public DateTime StartDate { get; init; }
         public DateTime EndDate { get; init; }
+        public DateTime CreateDate { get; init; }
     }
 }

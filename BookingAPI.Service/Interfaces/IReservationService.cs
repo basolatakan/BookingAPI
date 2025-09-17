@@ -30,5 +30,8 @@ namespace BookingAPI.Service.Interfaces
 
         //Silme/iptal
         Task<IResponse> DeleteAsync(int id);
+
+        //Tarih bazlı filtreleme için(CreateDate'e göre)
+        Task<ResponseGeneric<IReadOnlyList<ReservationDTO>>> GetReservationsCreatedBetweenAsync(DateTime start, DateTime end);
     }
 }

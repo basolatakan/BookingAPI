@@ -5,6 +5,7 @@ using BookingAPI.Service.Response;
 using BookingAPI.Service.Mapping;
 using Booking.DataAccess;
 using Booking.Core.Entities;
+using Azure;
 
 namespace BookingAPI.Service.Services
 {
@@ -168,6 +169,29 @@ namespace BookingAPI.Service.Services
             await _db.SaveChangesAsync();
 
             return BookingAPI.Service.Response.Response.Success("Rezervasyon silindi");
+        }
+
+        public async Task<ResponseGeneric<IReadOnlyList<ReservationDTO>>> GetReservationsCreatedBetweenAsync(DateTime start, DateTime end) 
+        {
+            if (end < start)
+                return ResponseGeneric<IReadOnlyList<ReservationDTO>>.Error("Son tarih ilk tarihten küçük olamaz.");
+
+            var list = await _db.Reservations
+                .AsNoTracking()
+                .Where(r => r.CreateDate >= start && r.CreateDate <= end)
+                .OrderBy(r => r.CreateDate)
+                .Select(r => new ReservationDTO 
+                {
+                    Id = r.Id,
+                    CustomerId = r.CustomerId,
+                    RoomId = r.RoomId,
+                    StartDate = r.StartDate,
+                    EndDate = r.EndDate,
+                    CreateDate = r.CreateDate
+                })
+                .ToListAsync();
+
+            return ResponseGeneric<IReadOnlyList<ReservationDTO>>.Success(list);
         }
     }
 }

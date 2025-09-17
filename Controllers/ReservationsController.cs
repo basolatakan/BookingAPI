@@ -72,5 +72,21 @@ namespace BookingAPI.Controllers
         {
             return From(await _service.DeleteAsync(id));
         }
+
+        // GET /api/reservations/createdbetween?start=...&end=...
+        [HttpGet("createdbetween")]
+        public async Task<IActionResult> GetCreatedBetween([FromQuery] DateTime start, [FromQuery] DateTime end) 
+        {
+            if (end < start)
+                return BadRequest("Tarih uyuşmazlığı");
+            
+            var result = await _service.GetReservationsCreatedBetweenAsync(start, end);
+
+            if(!result.IsSuccess)
+                return BadRequest("Sonuç hatalı"+ result.Message);
+
+            return From(result);
+        }
+
     }
 }
