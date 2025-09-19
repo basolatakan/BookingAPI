@@ -15,5 +15,8 @@ namespace BookingAPI.Service.Interfaces
         Task<ResponseGeneric<RoomDTO>> CreateAsync(RoomDTO dto);
         Task<ResponseGeneric<RoomDTO>> UpdateAsync(int id, RoomDTO dto);
         Task<IResponse> DeleteAsync(int id);
+
+        //Tarih bazlı arama sonrası müsait oldaları getirme
+        Task<ResponseGeneric<IReadOnlyList<RoomDTO>>> GetAvailableRoomsAsync(DateTime start, DateTime end, int capacity);
     }
 }

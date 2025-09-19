@@ -1,9 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
-using BookingAPI.Service.Interfaces;
-using BookingAPI.Service.DTOs;
-using BookingAPI.Service.Response;
-using BookingAPI.Service.Mapping;
+﻿using Booking.Core.Entities;
 using Booking.DataAccess;
+using BookingAPI.Service.DTOs;
+using BookingAPI.Service.Interfaces;
+using BookingAPI.Service.Mapping;
+using BookingAPI.Service.Response;
+using Microsoft.EntityFrameworkCore;
 
 namespace BookingAPI.Service.Services
 {
@@ -92,6 +93,48 @@ namespace BookingAPI.Service.Services
             await _db.SaveChangesAsync();
 
             return BookingAPI.Service.Response.Response.Success("Oda silindi");
+        }
+
+        //Uygun oda bulma
+        public async Task<ResponseGeneric<IReadOnlyList<RoomDTO>>> GetAvailableRoomsAsync(DateTime start, DateTime end, int capacity)
+        {
+            if (end <= start)
+                return ResponseGeneric<IReadOnlyList<RoomDTO>>.Error("Son tarih, ilk tarihten küçük olamaz.");
+
+            var maxCapacity = await _db.Rooms
+                .AsNoTracking()
+                .MaxAsync(r => r.Capacity);
+
+            if (maxCapacity <= 0)
+                return ResponseGeneric<IReadOnlyList<RoomDTO>>.Error("Bu otelde henüz tanımlı oda yok.");
+
+            if (capacity > maxCapacity)
+                return ResponseGeneric<IReadOnlyList<RoomDTO>>.Error($"Bu otelde {capacity} kişilik oda yok. En fazla {maxCapacity} kişilik arama yapabilirsiniz.");
+
+            if (capacity < 1)
+                return ResponseGeneric<IReadOnlyList<RoomDTO>>.Error("Kapasite en az 1 kişi olmalıdır.");
+
+
+            //incelenecek
+            var available = await _db.Rooms
+                .AsNoTracking()
+                .Where(r => r.Capacity >= capacity)
+                .Where(r => r.IsAvailable)                          //Belki çıkartılabilir
+                .Where(room => !_db.Reservations.Any(res =>
+                    res.RoomId == room.Id &&
+                    res.StartDate < end && start < res.EndDate))   // overlap yok
+                .OrderBy(r => r.RoomNumber)
+                .Select(r => new RoomDTO { 
+                    Id = r.Id, 
+                    RoomNumber = r.RoomNumber, 
+                    Capacity = r.Capacity, 
+                    IsAvailable = r.IsAvailable })                  //IsAvailable = true olarak yazmamız gerekebilir.
+                .ToListAsync();
+
+            if (!available.Any())
+                return ResponseGeneric<IReadOnlyList<RoomDTO>>.Success(available,"Girmiş olduğunuz tarihler arasında müsaitlik bulunamadı.");
+
+            return ResponseGeneric<IReadOnlyList<RoomDTO>>.Success(available);
         }
     }
 }

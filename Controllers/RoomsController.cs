@@ -61,5 +61,12 @@ namespace BookingAPI.Controllers
         {
             return From(await _service.DeleteAsync(id));
         }
+        
+
+        [HttpGet("availability")]
+        public async Task<IActionResult> GetAvailableRooms(DateTime start, DateTime end, int capacity) 
+        {
+            return From(await _service.GetAvailableRoomsAsync(start,end,capacity));
+        }
     }
 }
