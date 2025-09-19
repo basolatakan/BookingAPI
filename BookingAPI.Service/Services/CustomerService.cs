@@ -86,7 +86,7 @@ namespace BookingAPI.Service.Services
             _db.Customers.Remove(entity);
             await _db.SaveChangesAsync();
 
-            return BookingAPI.Service.Response.Response.Success("Müşteri silindi");
+            return BookingAPI.Service.Response.NoContentResponse.Success("Müşteri silindi");
         }
     }
 }

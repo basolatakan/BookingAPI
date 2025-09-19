@@ -13,11 +13,11 @@ namespace BookingAPI.Controllers
         {
             if (r.IsSuccess)
             {
-                return new OkObjectResult(r);   // Başarılıysa 200
+                return new OkObjectResult(r);   //Başarılıysa 200
             }
             else
             {
-                return new BadRequestObjectResult(r);   // Başarısızsa 400
+                return new BadRequestObjectResult(r);   //Başarısızsa 400
             }
         }
 
@@ -26,11 +26,11 @@ namespace BookingAPI.Controllers
         {
             if (r.IsSuccess)
             {
-                return new OkObjectResult(r);   // Başarılıysa 200
+                return new OkObjectResult(r);   //Başarılıysa 200
             }
             else
             {
-                return new BadRequestObjectResult(r);   // Başarısızsa 400
+                return new BadRequestObjectResult(r);   //Başarısızsa 400
             }
         }
     }

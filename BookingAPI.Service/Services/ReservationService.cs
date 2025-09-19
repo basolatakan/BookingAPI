@@ -168,7 +168,7 @@ namespace BookingAPI.Service.Services
             _db.Reservations.Remove(entity);
             await _db.SaveChangesAsync();
 
-            return BookingAPI.Service.Response.Response.Success("Rezervasyon silindi");
+            return BookingAPI.Service.Response.NoContentResponse.Success("Rezervasyon silindi");
         }
 
         public async Task<ResponseGeneric<IReadOnlyList<ReservationDTO>>> GetReservationsCreatedBetweenAsync(DateTime start, DateTime end) 

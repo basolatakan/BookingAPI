@@ -8,14 +8,14 @@ namespace BookingAPI.Service.Response
 {
     public class NoContentResponse : Response
     {
-        public NoContentResponse() : base(true, "No Content")
+        public NoContentResponse(string message = "") : base(true, message ?? "No Content")
         {
 
         }
 
-        public static NoContentResponse Success() 
+        public static NoContentResponse Success(string message = "") 
         {
-            return new NoContentResponse();
+            return new NoContentResponse(message);
         }
     }
 }

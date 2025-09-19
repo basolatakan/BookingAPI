@@ -92,7 +92,7 @@ namespace BookingAPI.Service.Services
             _db.Rooms.Remove(entity);
             await _db.SaveChangesAsync();
 
-            return BookingAPI.Service.Response.Response.Success("Oda silindi");
+            return BookingAPI.Service.Response.NoContentResponse.Success("Oda silindi");
         }
 
         //Uygun oda bulma

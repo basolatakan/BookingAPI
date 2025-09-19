@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BookingAPI.Service.Response
 {
-    public class Response : IResponse
+    public class Response : IResponse   //Veri dönmeyen senaryolar için
     {
         public bool IsSuccess { get; set; }
 
